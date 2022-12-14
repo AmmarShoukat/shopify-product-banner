@@ -1,0 +1,38 @@
+//snippet
+{% if product != blank %}
+  <div class="nws-product-grid-item nws-product-grid-simple nws-pdp-grid-{{product.id}}-uid" >
+    <div class="nws-product-grid-item-images" >
+       {%- render 'kt-wishlist-product', product: product -%}
+       <a href="{{ product.url }}" >
+         {% if product.featured_image != blank %} 
+             <img src="{{ product.featured_image | img_url: '450x' }}" data-img-id="{{ product.featured_image.id }}" data-option="{{ product.featured_image.alt }}" alt="{{ product.featured_image.alt }}" />
+          {% else %}
+             <img src="//cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png" />
+          {% endif %}
+       </a>
+    </div>
+  
+    <div class="nws-product-grid-item-info" >
+      {% render 'nws-stars' %}
+      <span class="nws-product-grid-item-heading" >{{ product.title }}</span>
+    </div>
+  
+    <form class="product-form product-form-product-template nws-product-grid-item-form" method="post" action="/cart/add" id="product-form-{{ product.variants.first.id }}" accept-charset="UTF-8" enctype="multipart/form-data" novalidate="novalidate" >
+        <input type="hidden" name="form_type" value="product">
+        <input type="hidden" name="utf8" value="✓">
+        
+        {%- assign current_variant = product.selected_or_first_available_variant -%}
+        <div class="product__price">
+          {% render 'nws-product-price', variant: current_variant %}
+        </div>
+  
+          <div class="nws-pdp-submit-div" >
+            {% if product.available %}
+              <a href="{{ product.url }}" class="nws-atc-btn" >SHOP NOW</a>
+            {% else %}
+              <a href="#" disabled="disabled" class="nws-atc-btn" >Sold Out</a>
+            {% endif %}
+          </div>
+      </form> 
+  </div>
+{% endif %}

@@ -1,0 +1,81 @@
+<!-- nws-one-pdp-side -->
+<div class="nws-one-pdp-side nws-ja-padding nws-align-{{ section.settings.nws-align }} {{ section.settings.custom-cls }}" {% if section.settings.section-color != blank %}style="background-color:{{ section.settings.section-color }};"{% endif %}>
+    <div class="container-fluid">
+      <div class="row">
+       <div class="col-lg-9 col-sm-12">
+         <div class="nws-one-pdp-side-img">
+             <a href="{{ section.settings.banner-link }}" >
+               {% if section.settings.banner != blank %}<img class="nws-mob-none" src="{{ section.settings.banner | img_url: '1500x' }}" />{% endif %}
+               {% if section.settings.banner-mobile != blank %}<img class="nws-desk-none" src="{{ section.settings.banner-mobile | img_url: '660x' }}" />{% endif %}
+             </a>
+         </div>
+        </div>
+        <div class="col-lg-3 col-sm-12"> 
+          <div class="nws-one-pdp-side-box">
+              {%- render "nws-product-grid-simple", product: section.settings.product -%}
+           </div>
+        </div>
+      </div>          
+    </div>
+</div>
+<!-- end nws-one-pdp-side -->
+
+{% schema %}
+{
+  "name": "NWS - Product + Banner",
+  "settings": [
+      {
+        "type": "color",
+        "id": "section-color",
+        "label": "Section BG Color"
+      },
+      {
+        "type": "radio",
+        "label": "Banner Alignment",
+        "options": [
+          {
+            "value": "left",
+            "label": "Banner Left"
+          },
+          {
+            "label": "Banner Right",
+            "value": "right"
+          }
+        ],
+        "id": "nws-align",
+        "default": "left"
+      },
+      {
+        "type": "image_picker",
+        "id": "banner",
+        "label": "Banner Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "banner-mobile",
+        "label": "Banner Image - Mobile"
+      },
+      {
+        "type": "url",
+        "id": "banner-link",
+        "label": "Banner Link"
+      },
+      {
+        "type": "product",
+        "id": "product",
+        "label": "Product"
+      },
+      {
+        "type": "text",
+        "id": "custom-cls",
+        "label": "Custom Class"
+       }
+   ],
+   "presets": [
+    {
+      "name": "NWS - Product + Banner",
+      "category": "NWS - Sections"
+    }
+  ]
+}
+{% endschema %}
